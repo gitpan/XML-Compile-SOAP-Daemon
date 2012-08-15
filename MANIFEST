@@ -36,3 +36,5 @@ t/11fault_cgi.t
 t/12fault_psgi.t
 t/20wsa.t
 xt/99pod.t
+META.yml                                 Module YAML meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)

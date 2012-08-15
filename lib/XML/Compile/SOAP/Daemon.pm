@@ -7,7 +7,7 @@ use strict;
 
 package XML::Compile::SOAP::Daemon;
 use vars '$VERSION';
-$VERSION = '3.04';
+$VERSION = '3.05';
 
 our @ISA;   # filled-in at new().
 
@@ -188,9 +188,10 @@ sub process($)
              , $server->faultTryOtherProtocol($bodyel, \@other))
         if @other;
 
-    my @available = sort keys %$handlers;
+    # we do not have the names of the request body elements here :(
+    my @ports = sort keys %$handlers;
     ( RC_NOT_FOUND, 'message not recognized'
-    , $server->faultMessageNotRecognized($bodyel, $soapaction, \@available));
+    , $server->faultMessageNotRecognized($bodyel, $soapaction, \@ports));
 }
 
 

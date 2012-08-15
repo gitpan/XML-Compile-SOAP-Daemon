@@ -7,7 +7,7 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::CGI;
 use vars '$VERSION';
-$VERSION = '3.04';
+$VERSION = '3.05';
 
 use base 'XML::Compile::SOAP::Daemon';
 

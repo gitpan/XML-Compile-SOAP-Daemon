@@ -1,7 +1,7 @@
-# Copyrights 2007-2012 by [Mark Overmeer].
+# Copyrights 2007-2013 by [Mark Overmeer].
 #  For other contributors see ChangeLog.
 # See the manual pages for details on the licensing terms.
-# Pod stripped from pm file by OODoc 2.00.
+# Pod stripped from pm file by OODoc 2.01.
 
 # This pm file demonstrates how a client-side and server-side definition
 # of a message can be created, in case there is no WSDL for the SOAP
@@ -9,7 +9,7 @@
 
 package MyExampleCalls;
 use vars '$VERSION';
-$VERSION = '3.05';
+$VERSION = '3.06';
 
 use base qw/Exporter/;
 

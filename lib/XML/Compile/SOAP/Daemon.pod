@@ -1,3 +1,5 @@
+=encoding utf8
+
 =head1 NAME
 
 XML::Compile::SOAP::Daemon - SOAP accepting server (base class)
@@ -352,7 +354,7 @@ like this:
 
 Fault codes are "prefix:error-name", XML::Compile finds the right prefix
 based on the URI. If your error namespace is not mentioned in the WSDL or
-other loaded schemas, you should use L<XML::Compile::WSDL11::prefixes()|XML::Compile::Cache/"Accessors">
+other loaded schemas, you should use L<XML::Compile::WSDL11::prefixes()|XML::Compile::Cache/"Prefix management">
 first.
 
 SOAP uses error codes in the SOAPENV namespace.  It shows whether errors
@@ -433,8 +435,8 @@ faultstring values from the fault message.
 
 =head1 SEE ALSO
 
-This module is part of XML-Compile-SOAP-Daemon distribution version 3.05,
-built on August 16, 2012. Website: F<http://perl.overmeer.net/xml-compile/>
+This module is part of XML-Compile-SOAP-Daemon distribution version 3.06,
+built on May 03, 2013. Website: F<http://perl.overmeer.net/xml-compile/>
 
 Other distributions in this suite:
 L<XML::Compile>,
@@ -444,6 +446,7 @@ L<XML::Compile::SOAP::Daemon>,
 L<XML::Compile::SOAP::WSA>,
 L<XML::Compile::C14N>,
 L<XML::Compile::WSS>,
+L<XML::Compile::WSS::Signature>,
 L<XML::Compile::Tester>,
 L<XML::Compile::Cache>,
 L<XML::Compile::Dumper>,
@@ -455,12 +458,13 @@ L<XML::LibXML::Simple>.
 
 Please post questions or ideas to the mailinglist at
 F<http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/xml-compile>
+
 For live contact with other developers, visit the C<#xml-compile> channel
 on C<irc.perl.org>.
 
 =head1 LICENSE
 
-Copyrights 2007-2012 by [Mark Overmeer]. For other contributors see ChangeLog.
+Copyrights 2007-2013 by [Mark Overmeer]. For other contributors see ChangeLog.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

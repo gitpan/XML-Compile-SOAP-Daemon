@@ -1,4 +1,4 @@
-# Copyrights 2007-2013 by [Mark Overmeer].
+# Copyrights 2007-2014 by [Mark Overmeer].
 #  For other contributors see ChangeLog.
 # See the manual pages for details on the licensing terms.
 # Pod stripped from pm file by OODoc 2.01.
@@ -7,11 +7,9 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::CGI;
 use vars '$VERSION';
-$VERSION = '3.06';
+$VERSION = '3.07';
 
-use base 'XML::Compile::SOAP::Daemon';
-
-our @ISA;
+use parent 'XML::Compile::SOAP::Daemon';
 
 use Log::Report 'xml-compile-soap-daemon';
 use CGI 3.53, ':cgi';
@@ -89,14 +87,15 @@ sub _run($;$)
     print $bytes;
 }
 
-sub setWsdlResponse($)
-{   my ($self, $fn) = @_;
+sub setWsdlResponse($;$)
+{   my ($self, $fn, $ft) = @_;
     $fn or return;
     local *WSDL;
     open WSDL, '<:raw', $fn
         or fault __x"cannot read WSDL from {file}", file => $fn;
     local $/;
     $self->{wsdl_data} = <WSDL>;
+    $self->{wsdl_type} = $ft || 'application/wsdl+xml';
     close WSDL;
 }
 
@@ -105,7 +104,7 @@ sub sendWsdl($)
 
     print $q->header
       ( -status  => RC_OK.' WSDL specification'
-      , -type    => 'application/wsdl+xml'
+      , -type    => $self->{wsdl_type}
       , -charset => 'utf-8'
       , -nph     => 1
 

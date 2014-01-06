@@ -81,12 +81,13 @@ encoded into a byte string.
 
 =head1 SEE ALSO
 
-This module is part of XML-Compile-SOAP-Daemon distribution version 3.06,
-built on May 03, 2013. Website: F<http://perl.overmeer.net/xml-compile/>
+This module is part of XML-Compile-SOAP-Daemon distribution version 3.07,
+built on January 06, 2014. Website: F<http://perl.overmeer.net/xml-compile/>
 
 Other distributions in this suite:
 L<XML::Compile>,
 L<XML::Compile::SOAP>,
+L<XML::Compile::WSDL11>,
 L<XML::Compile::SOAP12>,
 L<XML::Compile::SOAP::Daemon>,
 L<XML::Compile::SOAP::WSA>,
@@ -97,20 +98,18 @@ L<XML::Compile::Tester>,
 L<XML::Compile::Cache>,
 L<XML::Compile::Dumper>,
 L<XML::Compile::RPC>,
-L<XML::Rewrite>,
-L<XML::eXistDB>,
+L<XML::Rewrite>
 and
 L<XML::LibXML::Simple>.
 
 Please post questions or ideas to the mailinglist at
-F<http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/xml-compile>
-
+F<http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/xml-compile> .
 For live contact with other developers, visit the C<#xml-compile> channel
 on C<irc.perl.org>.
 
 =head1 LICENSE
 
-Copyrights 2007-2013 by [Mark Overmeer]. For other contributors see ChangeLog.
+Copyrights 2007-2014 by [Mark Overmeer]. For other contributors see ChangeLog.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

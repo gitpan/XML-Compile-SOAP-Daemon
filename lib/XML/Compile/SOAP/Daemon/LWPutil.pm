@@ -1,4 +1,4 @@
-# Copyrights 2007-2013 by [Mark Overmeer].
+# Copyrights 2007-2014 by [Mark Overmeer].
 #  For other contributors see ChangeLog.
 # See the manual pages for details on the licensing terms.
 # Pod stripped from pm file by OODoc 2.01.
@@ -7,9 +7,9 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::LWPutil;
 use vars '$VERSION';
-$VERSION = '3.06';
+$VERSION = '3.07';
 
-use base 'Exporter';
+use parent 'Exporter';
 
 
 our @EXPORT = qw(
@@ -51,10 +51,10 @@ sub lwp_add_header($$@) { push @default_headers, @_ }
 
 
 my $wsdl_response;
-sub lwp_wsdl_response(;$)
+sub lwp_wsdl_response(;$$)
 {   @_ or return $wsdl_response;
 
-    my $file = shift;
+    my ($file, $ft) = @_;
     $file && !ref $file
         or return $wsdl_response = $file;
 
@@ -65,10 +65,11 @@ sub lwp_wsdl_response(;$)
     my $spec = <SRC>;
     close SRC;
 
+    $ft ||= 'application/wsdl+xml';
     $wsdl_response = HTTP::Response->new
       ( RC_OK, "WSDL specification"
       , [ @default_headers
-        , "Content-Type" => 'application/wsdl+xml; charset="utf-8"'
+        , "Content-Type" => "$ft; charset=utf-8"
         ]
       , $spec
       );
@@ -148,7 +149,7 @@ sub lwp_make_response($$$$;$)
     my $s;
     if(UNIVERSAL::isa($body, 'XML::LibXML::Document'))
     {   $s = $body->toString($status == RC_OK ? 0 : 1);
-        $response->header('Content-Type' => 'text/xml; charset="utf-8"');
+        $response->header('Content-Type' => 'text/xml; charset=utf-8');
     }
     else
     {   $s = "[$status] $body";

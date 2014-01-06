@@ -37,12 +37,12 @@
             "Time::HiRes" : "0",
             "XML::Compile" : "1.26",
             "XML::Compile::Cache" : "0.991",
-            "XML::Compile::SOAP" : "2.29",
-            "XML::Compile::SOAP::WSA" : "0.12",
-            "XML::Compile::Tester" : "0.9"
+            "XML::Compile::SOAP" : "3.00",
+            "XML::Compile::Tester" : "0.90",
+            "XML::Compile::WSA" : "0.9"
          }
       }
    },
    "release_status" : "stable",
-   "version" : "3.06"
+   "version" : "3.07"
 }

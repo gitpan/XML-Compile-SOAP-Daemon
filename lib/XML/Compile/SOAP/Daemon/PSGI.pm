@@ -1,4 +1,4 @@
-# Copyrights 2007-2013 by [Mark Overmeer].
+# Copyrights 2007-2014 by [Mark Overmeer].
 #  For other contributors see ChangeLog.
 # See the manual pages for details on the licensing terms.
 # Pod stripped from pm file by OODoc 2.01.
@@ -7,9 +7,9 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::PSGI;
 use vars '$VERSION';
-$VERSION = '3.06';
+$VERSION = '3.07';
 
-use base 'XML::Compile::SOAP::Daemon', 'Plack::Component';
+use parent 'XML::Compile::SOAP::Daemon', 'Plack::Component';
 
 use Log::Report 'xml-compile-soap-daemon';
 use Encode;
@@ -125,13 +125,14 @@ sub _call($;$)
     $res;
 }
 
-sub setWsdlResponse($)
-{   my ($self, $fn) = @_;
+sub setWsdlResponse($;$)
+{   my ($self, $fn, $ft) = @_;
     local *WSDL;
     open WSDL, '<:raw', $fn
         or fault __x"cannot read WSDL from {file}", file => $fn;
     local $/;
     $self->{wsdl_data} = <WSDL>;
+    $self->{wsdl_type} = $ft || 'application/wsdl+xml';
     close WSDL;
 }
 
@@ -140,7 +141,7 @@ sub sendWsdl($)
 
     my $res = $req->new_response(RC_OK,
       { Warning        => '199 WSDL specification'
-      , Content_Type   => 'application/wsdl+xml; charset=utf-8'
+      , Content_Type   => $self->{wsdl_type}.'; charset=utf-8'
       , Content_Length => length($self->{wsdl_data})
       }, $self->{wsdl_data});
 

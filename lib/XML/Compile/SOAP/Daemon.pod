@@ -24,6 +24,7 @@ XML::Compile::SOAP::Daemon - SOAP accepting server (base class)
  $daemon->operationsFromWSDL($wsdl, callbacks => ...);
 
  $daemon->setWsdlResponse($wsdl_fn);
+ $daemon->setWsdlResponse($wsdl_fn, $soap11->mediaType);
 
  # operation definitions added manually
  my $soap11  = XML::Compile::SOAP11::Server->new(schemas => $wsdl->schemas);
@@ -210,10 +211,10 @@ XML::LibXML::Document.
 =item $obj-E<gt>B<operationsFromWSDL>(WSDL, OPTIONS)
 
 Compile the operations found in the WSDL object (an
-L<XML::Compile::WSDL11|XML::Compile::WSDL11>).  You can add the operations from many different
+XML::Compile::WSDL11).  You can add the operations from many different
 WSDLs into one server, simply by calling this method repeatedly.
 
-You can also specify OPTIONS for L<XML::Compile::WSDL11::operations()|XML::Compile::WSDL11/"Introspection">.
+You can also specify OPTIONS for XML::Compile::WSDL11 subroutine operations.
 Those parameters may be needed to distinguish between the test-server
 and the live-server, provided protocol support and such.
 
@@ -241,21 +242,23 @@ be returned.  See L</Operation handlers>
 Load the selected operations only (L<XML::Compile::SOAP::Operation|XML::Compile::SOAP::Operation> objects)
 If not specified, all operations will be taken which are selected with
 the C<service>, C<port>, and C<binding> OPTIONS for
-L<XML::Compile::WSDL11::operations()|XML::Compile::WSDL11/"Introspection">.
+XML::Compile::WSDL11 subroutine operations.
 
 =back
 
 example: 
 
- $wsdl->operationsFromWSDL($wsdl, service => 'MyService',
+ $daemon->operationsFromWSDL($wsdl, service => 'MyService',
     binding => 'MyService-soap11', callbacks => {get => \$f11});
- $wsdl->operationsFromWSDL($wsdl, service => 'MyService-test',
+ $daemonwsdl->operationsFromWSDL($wsdl, service => 'MyService-test',
     binding => 'MyService-soap12', callbacks => {get => \$f12});
 
-=item $obj-E<gt>B<setWsdlResponse>(FILENAME)
+=item $obj-E<gt>B<setWsdlResponse>(FILENAME, [FILETYPE])
 
 Many existing SOAP servers will reponse to GET queries which end on "?WSDL"
 by sending the WSDL in use by the service.
+
+The default FILETYPE is C<application/wsdl+xml>.  You may need C<text/xml>
 
 =back
 
@@ -354,7 +357,7 @@ like this:
 
 Fault codes are "prefix:error-name", XML::Compile finds the right prefix
 based on the URI. If your error namespace is not mentioned in the WSDL or
-other loaded schemas, you should use L<XML::Compile::WSDL11::prefixes()|XML::Compile::Cache/"Prefix management">
+other loaded schemas, you should use XML::Compile::WSDL11 subroutine prefixes
 first.
 
 SOAP uses error codes in the SOAPENV namespace.  It shows whether errors
@@ -435,12 +438,13 @@ faultstring values from the fault message.
 
 =head1 SEE ALSO
 
-This module is part of XML-Compile-SOAP-Daemon distribution version 3.06,
-built on May 03, 2013. Website: F<http://perl.overmeer.net/xml-compile/>
+This module is part of XML-Compile-SOAP-Daemon distribution version 3.07,
+built on January 06, 2014. Website: F<http://perl.overmeer.net/xml-compile/>
 
 Other distributions in this suite:
 L<XML::Compile>,
 L<XML::Compile::SOAP>,
+L<XML::Compile::WSDL11>,
 L<XML::Compile::SOAP12>,
 L<XML::Compile::SOAP::Daemon>,
 L<XML::Compile::SOAP::WSA>,
@@ -451,20 +455,18 @@ L<XML::Compile::Tester>,
 L<XML::Compile::Cache>,
 L<XML::Compile::Dumper>,
 L<XML::Compile::RPC>,
-L<XML::Rewrite>,
-L<XML::eXistDB>,
+L<XML::Rewrite>
 and
 L<XML::LibXML::Simple>.
 
 Please post questions or ideas to the mailinglist at
-F<http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/xml-compile>
-
+F<http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/xml-compile> .
 For live contact with other developers, visit the C<#xml-compile> channel
 on C<irc.perl.org>.
 
 =head1 LICENSE
 
-Copyrights 2007-2013 by [Mark Overmeer]. For other contributors see ChangeLog.
+Copyrights 2007-2014 by [Mark Overmeer]. For other contributors see ChangeLog.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

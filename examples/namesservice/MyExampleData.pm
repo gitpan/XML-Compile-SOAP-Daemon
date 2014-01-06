@@ -1,4 +1,4 @@
-# Copyrights 2007-2013 by [Mark Overmeer].
+# Copyrights 2007-2014 by [Mark Overmeer].
 #  For other contributors see ChangeLog.
 # See the manual pages for details on the licensing terms.
 # Pod stripped from pm file by OODoc 2.01.
@@ -7,7 +7,7 @@ use strict;
 
 package MyExampleData;
 use vars '$VERSION';
-$VERSION = '3.06';
+$VERSION = '3.07';
 
 use base 'Exporter';
 

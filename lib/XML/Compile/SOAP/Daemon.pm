@@ -1,4 +1,4 @@
-# Copyrights 2007-2013 by [Mark Overmeer].
+# Copyrights 2007-2014 by [Mark Overmeer].
 #  For other contributors see ChangeLog.
 # See the manual pages for details on the licensing terms.
 # Pod stripped from pm file by OODoc 2.01.
@@ -7,9 +7,8 @@ use strict;
 
 package XML::Compile::SOAP::Daemon;
 use vars '$VERSION';
-$VERSION = '3.06';
+$VERSION = '3.07';
 
-our @ISA;   # filled-in at new().
 
 use Log::Report 'xml-compile-soap-daemon';
 
@@ -51,7 +50,7 @@ sub init($)
         error __x"new(support_soap} removed in 2.00";
     }
 
-    my @classes = XML::Compile::SOAP::Operation->registered;
+    my @classes = XML::Compile::SOAP->registered;
     @classes   # explicit load required since 2.00
         or warning "No protocol modules loaded.  Need XML::Compile::SOAP11?";
 
@@ -129,7 +128,7 @@ sub process($)
         or return $self->faultNotSoapMessage(type_of_node $xmlin);
 
     my $envns  = $xmlin->namespaceURI || '';
-    my $proto  = XML::Compile::SOAP::Operation->fromEnvelope($envns)
+    my $proto  = XML::Compile::SOAP->fromEnvelope($envns)
         or return $self->faultUnsupportedSoapVersion($envns);
     # proto is a XML::Compile::SOAP*::Operation
     my $server = $proto->serverClass;
@@ -262,8 +261,8 @@ sub addHandler($$$)
 }
 
 
-sub setWsdlResponse($)
-{   my ($self, $filename) = @_;
+sub setWsdlResponse($;$)
+{   my ($self, $filename, $type) = @_;
     panic "not implemented by backend {pkg}", pkg => (ref $self || $self);
 }
 

@@ -1,4 +1,4 @@
-# Copyrights 2007-2013 by [Mark Overmeer].
+# Copyrights 2007-2014 by [Mark Overmeer].
 #  For other contributors see ChangeLog.
 # See the manual pages for details on the licensing terms.
 # Pod stripped from pm file by OODoc 2.01.
@@ -7,11 +7,11 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::AnyDaemon;
 use vars '$VERSION';
-$VERSION = '3.06';
+$VERSION = '3.07';
 
 
 # Any::Daemon at least version 0.13
-use base 'XML::Compile::SOAP::Daemon', 'Any::Daemon';
+use parent 'XML::Compile::SOAP::Daemon', 'Any::Daemon';
 
 use Log::Report 'xml-compile-soap-daemon';
 
@@ -29,10 +29,10 @@ sub new($%)
     (bless $self, $class)->init(\%args);  # $ISA[0] branch only
 }
 
-sub setWsdlResponse($)
-{   my ($self, $fn) = @_;
+sub setWsdlResponse($;$)
+{   my ($self, $fn, $ft) = @_;
     trace "setting wsdl response to $fn";
-    lwp_wsdl_response $fn;
+    lwp_wsdl_response $fn, $ft;
 }
 
 #-----------------------
@@ -63,10 +63,10 @@ sub _run($)
     lwp_socket_init $socket;
 
     $self->{XCSDA_conn_opts} =
-      { client_timeout  => ($args->{client_timeout}  ||  30)
-      , client_maxreq   => ($args->{client_maxreq}   || 100)
-      , client_reqbonus => ($args->{client_reqbonus} ||   0)
-      , postprocess     => $args->{postprocess}
+      { expires     => ($args->{client_timeout}  ||  30)
+      , maxmsgs     => ($args->{client_maxreq}   || 100)
+      , reqbonus    => ($args->{client_reqbonus} ||   0)
+      , postprocess => $args->{postprocess}
       };
 
     my $child_init = $args->{child_init} || sub {};

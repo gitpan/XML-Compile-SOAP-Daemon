@@ -58,15 +58,15 @@ Framework) and POST (standard HTTP) for any message.  It can be used
 for any SOAP1.1 and SOAP1.2 mixture.  Although SOAP1.2 itself is
 not implemented yet.
 
-See L<documentation in base class|XML::Compile::SOAP::Daemon/"DESCRIPTION">.
+See L<documentation in the base class|XML::Compile::SOAP::Daemon/"DESCRIPTION">.
  
 =head1 METHODS
 
-See L<documentation in base class|XML::Compile::SOAP::Daemon/"METHODS">.
+See L<documentation in the base class|XML::Compile::SOAP::Daemon/"METHODS">.
  
 =head2 Constructors
 
-See L<documentation in base class|XML::Compile::SOAP::Daemon/"Constructors">.
+See L<documentation in the base class|XML::Compile::SOAP::Daemon/"Constructors">.
  
 =over 4
 
@@ -103,7 +103,7 @@ like C<pid_file>, C<user>, C<group>, and C<workdir>,
 
 =head2 Attributes
 
-See L<documentation in base class|XML::Compile::SOAP::Daemon/"Attributes">.
+See L<documentation in the base class|XML::Compile::SOAP::Daemon/"Attributes">.
  
 =over 4
 
@@ -123,7 +123,7 @@ See L<XML::Compile::SOAP::Daemon/"Attributes">
 
 =head2 Running the server
 
-See L<documentation in base class|XML::Compile::SOAP::Daemon/"Running the server">.
+See L<documentation in the base class|XML::Compile::SOAP::Daemon/"Running the server">.
  
 =over 4
 
@@ -204,7 +204,7 @@ IO::Socket::IP)
 
 =head2 Preparations
 
-See L<documentation in base class|XML::Compile::SOAP::Daemon/"Preparations">.
+See L<documentation in the base class|XML::Compile::SOAP::Daemon/"Preparations">.
  
 =over 4
 
@@ -216,7 +216,7 @@ See L<XML::Compile::SOAP::Daemon/"Preparations">
 
 See L<XML::Compile::SOAP::Daemon/"Preparations">
 
-=item $obj-E<gt>B<setWsdlResponse>(FILENAME)
+=item $obj-E<gt>B<setWsdlResponse>(FILENAME, [FILETYPE])
 
 See L<XML::Compile::SOAP::Daemon/"Preparations">
 
@@ -224,7 +224,7 @@ See L<XML::Compile::SOAP::Daemon/"Preparations">
 
 =head2 Helpers
 
-See L<documentation in base class|XML::Compile::SOAP::Daemon/"Helpers">.
+See L<documentation in the base class|XML::Compile::SOAP::Daemon/"Helpers">.
  
 =over 4
 
@@ -256,15 +256,15 @@ See L<XML::Compile::SOAP::Daemon/"Helpers">
 
 =head1 DETAILS
 
-See L<documentation in base class|XML::Compile::SOAP::Daemon/"DETAILS">.
+See L<documentation in the base class|XML::Compile::SOAP::Daemon/"DETAILS">.
  
 =head2 Operation handlers
 
-See L<documentation in base class|XML::Compile::SOAP::Daemon/"Operation handlers">.
+See L<documentation in the base class|XML::Compile::SOAP::Daemon/"Operation handlers">.
  
 =head2 Returning errors
 
-See L<documentation in base class|XML::Compile::SOAP::Daemon/"Returning errors">.
+See L<documentation in the base class|XML::Compile::SOAP::Daemon/"Returning errors">.
  
 =head2 AnyDaemon with SSL
 
@@ -320,12 +320,13 @@ Assuming that the certificates are in 'certs/', the program looks like this:
 
 =head1 SEE ALSO
 
-This module is part of XML-Compile-SOAP-Daemon distribution version 3.06,
-built on May 03, 2013. Website: F<http://perl.overmeer.net/xml-compile/>
+This module is part of XML-Compile-SOAP-Daemon distribution version 3.07,
+built on January 06, 2014. Website: F<http://perl.overmeer.net/xml-compile/>
 
 Other distributions in this suite:
 L<XML::Compile>,
 L<XML::Compile::SOAP>,
+L<XML::Compile::WSDL11>,
 L<XML::Compile::SOAP12>,
 L<XML::Compile::SOAP::Daemon>,
 L<XML::Compile::SOAP::WSA>,
@@ -336,20 +337,18 @@ L<XML::Compile::Tester>,
 L<XML::Compile::Cache>,
 L<XML::Compile::Dumper>,
 L<XML::Compile::RPC>,
-L<XML::Rewrite>,
-L<XML::eXistDB>,
+L<XML::Rewrite>
 and
 L<XML::LibXML::Simple>.
 
 Please post questions or ideas to the mailinglist at
-F<http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/xml-compile>
-
+F<http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/xml-compile> .
 For live contact with other developers, visit the C<#xml-compile> channel
 on C<irc.perl.org>.
 
 =head1 LICENSE
 
-Copyrights 2007-2013 by [Mark Overmeer]. For other contributors see ChangeLog.
+Copyrights 2007-2014 by [Mark Overmeer]. For other contributors see ChangeLog.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

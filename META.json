@@ -39,10 +39,11 @@
             "XML::Compile::Cache" : "0.991",
             "XML::Compile::SOAP" : "3.00",
             "XML::Compile::Tester" : "0.90",
-            "XML::Compile::WSA" : "0.9"
+            "XML::Compile::WSA" : "0.9",
+            "XML::Compile::WSDL11" : "3.00"
          }
       }
    },
    "release_status" : "stable",
-   "version" : "3.07"
+   "version" : "3.08"
 }

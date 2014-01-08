@@ -7,7 +7,7 @@ use strict;
 
 package XML::Compile::SOAP::Daemon;
 use vars '$VERSION';
-$VERSION = '3.07';
+$VERSION = '3.08';
 
 
 use Log::Report 'xml-compile-soap-daemon';

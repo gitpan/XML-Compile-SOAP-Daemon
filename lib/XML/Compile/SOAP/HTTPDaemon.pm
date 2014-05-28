@@ -5,7 +5,7 @@
 
 package XML::Compile::SOAP::HTTPDaemon;
 use vars '$VERSION';
-$VERSION = '3.08';
+$VERSION = '3.09';
 
 
 use XML::Compile::SOAP::Daemon::NetServer;

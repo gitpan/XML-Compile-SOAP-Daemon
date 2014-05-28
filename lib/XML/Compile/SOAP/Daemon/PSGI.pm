@@ -7,7 +7,7 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::PSGI;
 use vars '$VERSION';
-$VERSION = '3.08';
+$VERSION = '3.09';
 
 use parent 'XML::Compile::SOAP::Daemon', 'Plack::Component';
 

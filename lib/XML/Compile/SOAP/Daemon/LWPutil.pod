@@ -20,39 +20,39 @@ XML::Compile::SOAP::Daemon::LWPutil - LWP helper routines
 
 =over 4
 
-=item B<lwp_action_from_header>(REQUEST)
+=item B<lwp_action_from_header>($request)
 
 Collect the soap action URI from the request, with C<undef> on failure.
 Officially, the "SOAPAction" has no other purpose than the ability to
 route messages over HTTP: it should not be linked to the portname of
 the message (although it often can).
 
-=item B<lwp_add_header>(FIELD, CONTENT, ...)
+=item B<lwp_add_header>($field, $content, ...)
 
-=item B<lwp_handle_connection>(CONNECTION, OPTIONS)
+=item B<lwp_handle_connection>($connection, %options)
 
-=item B<lwp_http11_connection>(DAEMON, SOCKET)
+=item B<lwp_http11_connection>($daemon, $socket)
 
-Initialize a HTTP/1.1 connect on the client SOCKET.
+Initialize a HTTP/1.1 connect on the client $socket.
 
-=item B<lwp_make_response>(REQUEST, RC, MSG, BODY, [POSTPROC])
+=item B<lwp_make_response>( $request, $rc, $msg, $body, [$postproc] )
 
-=item B<lwp_run_request>(REQUEST, HANDLER, [CONNECTION, POSTPROC])
+=item B<lwp_run_request>( $request, $handler, [$connection, $postproc] )
 
-Handle one REQUEST (HTTP::Request object), which was received from
-the CLIENT (string).  When the request has been received, the HANDLER
+Handle one $request (HTTP::Request object), which was received from
+the CLIENT (string).  When the request has been received, the $handler
 is called. Returns the status, the status as text message, and the
 output as XML::LibXML::Document.
 
-=item B<lwp_socket_init>(SOCKET)
+=item B<lwp_socket_init>($socket)
 
-Initialize LWP usage based on a created SOCKET.
+Initialize LWP usage based on a created $socket.
 
-=item B<lwp_wsdl_response>([WSDLFILE|RESPONSE])
+=item B<lwp_wsdl_response>( [$wsdlfile|$response] )
 
 Set the result of WSDL query responses, either to a response which
-is created internally containing WSDLFILE, or to an already complete
-RESPONSE object (HTTP::Response).  The response object is returned.
+is created internally containing $wsdlfile, or to an already complete
+$response object (HTTP::Response).  The response object is returned.
 
 =back
 
@@ -81,8 +81,8 @@ encoded into a byte string.
 
 =head1 SEE ALSO
 
-This module is part of XML-Compile-SOAP-Daemon distribution version 3.08,
-built on January 08, 2014. Website: F<http://perl.overmeer.net/xml-compile/>
+This module is part of XML-Compile-SOAP-Daemon distribution version 3.09,
+built on May 28, 2014. Website: F<http://perl.overmeer.net/xml-compile/>
 
 Other distributions in this suite:
 L<XML::Compile>,

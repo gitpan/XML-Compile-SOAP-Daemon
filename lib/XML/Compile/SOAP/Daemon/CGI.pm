@@ -7,7 +7,7 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::CGI;
 use vars '$VERSION';
-$VERSION = '3.08';
+$VERSION = '3.09';
 
 use parent 'XML::Compile::SOAP::Daemon';
 
@@ -25,7 +25,6 @@ use constant
 
 #--------------------
 
-
 sub runCgiRequest(@) {shift->run(@_)}
 
 
@@ -35,11 +34,12 @@ sub _run($;$)
 
     my $q      = $test_cgi || $args->{query} || CGI->new;
     my $method = $ENV{REQUEST_METHOD} || 'POST';
+    my $qs     = $ENV{QUERY_STRING}   || '';
     my $ct     = $ENV{CONTENT_TYPE}   || 'text/plain';
     $ct =~ s/\;\s.*//;
 
     return $self->sendWsdl($q)
-        if $method eq 'GET' && url =~ m/ \? WSDL $ /x;
+        if $method eq 'GET' && uc($qs) eq 'WSDL';
 
     my ($rc, $msg, $err, $mime, $bytes);
     if($method ne 'POST' && $method ne 'M-POST')
@@ -75,7 +75,7 @@ sub _run($;$)
       ( -status  => "$rc $msg"
       , -type    => $mime
       , -charset => 'utf-8'
-      , -nph     => 1
+      , -nph     => ($args->{nph} ? 1 : 0)
       );
 
     if(my $pp = $args->{postprocess})

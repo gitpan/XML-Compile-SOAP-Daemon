@@ -7,7 +7,7 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::AnyDaemon;
 use vars '$VERSION';
-$VERSION = '3.08';
+$VERSION = '3.09';
 
 
 # Any::Daemon at least version 0.13
@@ -39,6 +39,7 @@ sub setWsdlResponse($;$)
 
 sub _run($)
 {   my ($self, $args) = @_;
+
     my $name = $args->{server_name} || 'soap server';
     lwp_add_header
        'X-Any-Daemon-Version' => $Any::Daemon::VERSION
@@ -63,7 +64,7 @@ sub _run($)
     lwp_socket_init $socket;
 
     $self->{XCSDA_conn_opts} =
-      { expires     => ($args->{client_timeout}  ||  30)
+     +{ expires     => ($args->{client_timeout}  ||  30)
       , maxmsgs     => ($args->{client_maxreq}   || 100)
       , reqbonus    => ($args->{client_reqbonus} ||   0)
       , postprocess => $args->{postprocess}
@@ -96,7 +97,7 @@ sub handle_connection($)
     eval {
         lwp_handle_connection $connection
           , %$conn_opts
-          , expires  => time() + $conn_opts->{client_timeout}
+          , expires  => time() + $conn_opts->{expires}
           , handler  => sub {$self->process(@_)}
     };
     info __x"connection ended with force; {error}", error => $@

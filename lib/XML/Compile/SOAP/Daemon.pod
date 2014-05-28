@@ -84,7 +84,7 @@ the time.
 
 =over 4
 
-=item XML::Compile::SOAP::Daemon-E<gt>B<new>(OPTIONS)
+=item XML::Compile::SOAP::Daemon-E<gt>B<new>(%options)
 
  -Option            --Default
   accept_slow_select  <true>
@@ -148,7 +148,7 @@ when XML::Compile::SOAP::WSA is loaded.
 Map SOAPAction headers only operations. You do not need to map
 explicitly when the info can be derived from the WSDL.
 
-=item $obj-E<gt>B<addWsaTable>(('INPUT'|'OUTPUT'), [HASH|PAIRS])
+=item $obj-E<gt>B<addWsaTable>( <'INPUT'|'OUTPUT'>, [HASH|PAIRS] )
 
 Map operation name onto respectively server-input or server-output
 messages, used for C<wsa:Action> fields in the header. Usually, these
@@ -165,15 +165,15 @@ The character-set to be used for output documents.
 
 =over 4
 
-=item $obj-E<gt>B<process>(CLIENT, XMLIN, REQUEST, ACTION)
+=item $obj-E<gt>B<process>($client, $xmlin, $request, $action)
 
 This method is called to process a single request.
-The XMLIN is a SOAP-structured message (an XML::LibXML::Element,
-XML::LibXML::Document, or XML as string), was received from the CLIENT
+The $xmlin is a SOAP-structured message (an XML::LibXML::Element,
+XML::LibXML::Document, or XML as string), was received from the $client
 (some extension specific object).
 
-The full REQUEST is passed in, however its format depends on the
-kind of server. The ACTION parameter relates to the soapAction header
+The full $request is passed in, however its format depends on the
+kind of server. The $action parameter relates to the soapAction header
 field which may be available in some form.
 
 Returned is an XML document (XML::LibXML::Document) as answer or a
@@ -187,7 +187,7 @@ See L<operationsFromWSDL()|XML::Compile::SOAP::Daemon/"Preparations"> and L<addH
 routines can be specified.  See L<new()|XML::Compile::SOAP::Daemon/"Constructors"> for a description of the options
 which control how the callback routine is chosen.
 
-=item $obj-E<gt>B<run>(OPTIONS)
+=item $obj-E<gt>B<run>(%options)
 
 How the daemon is run depends much on the extension being used. See the
 C<::NetServer> and C<::CGI> manual-page.
@@ -198,23 +198,23 @@ C<::NetServer> and C<::CGI> manual-page.
 
 =over 4
 
-=item $obj-E<gt>B<addHandler>(NAME, SOAP, CODE)
+=item $obj-E<gt>B<addHandler>($name, $soap, CODE)
 
-The SOAP value is C<SOAP11>, C<SOAP12>, or a SOAP server object or and
-SOAP Operation object.  The CODE reference is called with the incoming
+The $soap value is C<SOAP11>, C<SOAP12>, or a $soap server object or and
+$soap Operation object.  The CODE reference is called with the incoming
 document (an XML::LibXML::Document) of the received input message.
 
 In case the handler does not understand the message, it should
 return undef.  Otherwise, it must return a correct answer message as
 XML::LibXML::Document.
 
-=item $obj-E<gt>B<operationsFromWSDL>(WSDL, OPTIONS)
+=item $obj-E<gt>B<operationsFromWSDL>($wsdl, %options)
 
-Compile the operations found in the WSDL object (an
+Compile the operations found in the $wsdl object (an
 XML::Compile::WSDL11).  You can add the operations from many different
 WSDLs into one server, simply by calling this method repeatedly.
 
-You can also specify OPTIONS for XML::Compile::WSDL11 subroutine operations.
+You can also specify %options for XML::Compile::WSDL11 subroutine operations.
 Those parameters may be needed to distinguish between the test-server
 and the live-server, provided protocol support and such.
 
@@ -227,7 +227,7 @@ and the live-server, provided protocol support and such.
 
 =item callbacks => HASH
 
-The keys are the port names, as defined in the WSDL.  The values are CODE
+The keys are the port names, as defined in the $wsdl.  The values are CODE
 references which are called in case a message is received which is
 addressing the port (this is a guess). See L</Operation handlers>
 
@@ -241,7 +241,7 @@ be returned.  See L</Operation handlers>
 
 Load the selected operations only (L<XML::Compile::SOAP::Operation|XML::Compile::SOAP::Operation> objects)
 If not specified, all operations will be taken which are selected with
-the C<service>, C<port>, and C<binding> OPTIONS for
+the C<service>, C<port>, and C<binding> %options for
 XML::Compile::WSDL11 subroutine operations.
 
 =back
@@ -253,12 +253,12 @@ example:
  $daemonwsdl->operationsFromWSDL($wsdl, service => 'MyService-test',
     binding => 'MyService-soap12', callbacks => {get => \$f12});
 
-=item $obj-E<gt>B<setWsdlResponse>(FILENAME, [FILETYPE])
+=item $obj-E<gt>B<setWsdlResponse>( $filename, [$filetype] )
 
-Many existing SOAP servers will reponse to GET queries which end on "?WSDL"
+Many existing SOAP servers will response to GET queries which end on "?WSDL"
 by sending the WSDL in use by the service.
 
-The default FILETYPE is C<application/wsdl+xml>.  You may need C<text/xml>
+The default $filetype is C<application/wsdl+xml>.  You may need C<text/xml>
 
 =back
 
@@ -266,16 +266,16 @@ The default FILETYPE is C<application/wsdl+xml>.  You may need C<text/xml>
 
 =over 4
 
-=item $obj-E<gt>B<faultInvalidXML>(ERROR)
+=item $obj-E<gt>B<faultInvalidXML>($error)
 
-=item $obj-E<gt>B<faultNotSoapMessage>(NODETYPE)
+=item $obj-E<gt>B<faultNotSoapMessage>($nodetype)
 
-=item $obj-E<gt>B<faultUnsupportedSoapVersion>(ENV_NS)
+=item $obj-E<gt>B<faultUnsupportedSoapVersion>($env_ns)
 
 Produces a text message, because we do not know how to produce
 an error in a SOAP which we do not understand.
 
-=item $obj-E<gt>B<handlers>(('SOAP11'|'SOAP12'|SOAP))
+=item $obj-E<gt>B<handlers>( <'SOAP11'|'SOAP12'|$soap> )
 
 Returns all the handler names for a certain soap version.
 
@@ -287,7 +287,7 @@ example:
      }
  }
 
-=item $obj-E<gt>B<printIndex>([FILEHANDLE])
+=item $obj-E<gt>B<printIndex>( [$fh] )
 
 Print a table which shows the messages that the server can handle,
 by default to STDOUT.
@@ -438,8 +438,8 @@ faultstring values from the fault message.
 
 =head1 SEE ALSO
 
-This module is part of XML-Compile-SOAP-Daemon distribution version 3.08,
-built on January 08, 2014. Website: F<http://perl.overmeer.net/xml-compile/>
+This module is part of XML-Compile-SOAP-Daemon distribution version 3.09,
+built on May 28, 2014. Website: F<http://perl.overmeer.net/xml-compile/>
 
 Other distributions in this suite:
 L<XML::Compile>,

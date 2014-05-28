@@ -7,7 +7,7 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::LWPutil;
 use vars '$VERSION';
-$VERSION = '3.08';
+$VERSION = '3.09';
 
 use parent 'Exporter';
 
@@ -111,7 +111,7 @@ sub lwp_run_request($$;$$)
     return $wsdl_response
         if $wsdl_response
         && $request->method eq 'GET'
-        && $request->uri->path_query =~ m! \? WSDL $ !x;
+        && uc($request->uri->query || '') eq 'WSDL';
 
     if($request->method !~ m/^(?:M-)?POST/ )
     {   return lwp_make_response $request

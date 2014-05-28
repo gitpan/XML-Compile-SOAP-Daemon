@@ -7,7 +7,7 @@ use strict;
 
 package XML::Compile::SOAP::Daemon;
 use vars '$VERSION';
-$VERSION = '3.08';
+$VERSION = '3.09';
 
 
 use Log::Report 'xml-compile-soap-daemon';
@@ -59,6 +59,7 @@ sub init($)
     $self;
 }
 
+#-----------
 
 sub outputCharset() {shift->{output_charset}}
 
@@ -88,17 +89,15 @@ sub addSoapAction(@)
     $t;
 }
 
+#------------------
 
 sub run(@)
 {   my ($self, %args) = @_;
- eval {
     notice __x"WSA module loaded, but not used"
         if XML::Compile::SOAP::WSA->can('new') && !keys %{$self->{wsa_input}};
 
     $self->{wsa_input_rev}  = +{ reverse %{$self->{wsa_input}} };
     $self->_run(\%args);
- };
- error $@ if $@;
 }
 
 
@@ -184,15 +183,18 @@ sub process($)
         $self->soapVersions;
 
     return (RC_SEE_OTHER, 'SOAP protocol not in use'
-             , $server->faultTryOtherProtocol($bodyel, \@other))
+      , $server->faultTryOtherProtocol($bodyel, \@other))
         if @other;
 
     # we do not have the names of the request body elements here :(
     my @ports = sort keys %$handlers;
-    ( RC_NOT_FOUND, 'message not recognized'
-    , $server->faultMessageNotRecognized($bodyel, $soapaction, \@ports));
+
+      ( RC_NOT_FOUND, 'message not recognized'
+      , $server->faultMessageNotRecognized($bodyel, $soapaction, \@ports)
+      );
 }
 
+#------------------
 
 sub operationsFromWSDL($@)
 {   my ($self, $wsdl, %args) = @_;
@@ -209,7 +211,7 @@ sub operationsFromWSDL($@)
 
     foreach my $op (@ops)
     {   my $name = $op->name;
-        warning "multiple operations with name {name}", name => $name
+        warning __x"multiple operations with name `{name}'", name => $name
             if $names{$name}++;
 
         my $code;
@@ -223,9 +225,8 @@ sub operationsFromWSDL($@)
         }
         else
         {   trace __x"add stub handler for operation `{name}'", name => $name;
-            my $server  = $op->serverClass;
             my $handler = $default_cb
-              || sub { $server->faultNotImplemented($name) };
+              || sub { $_[0]->faultNotImplemented($name) };
 
             $code = $op->compileHandler(callback => $handler);
         }
@@ -266,6 +267,7 @@ sub setWsdlResponse($;$)
     panic "not implemented by backend {pkg}", pkg => (ref $self || $self);
 }
 
+#------------------
 
 sub handlers($)
 {   my ($self, $soap) = @_;
@@ -313,5 +315,6 @@ sub faultUnsupportedSoapVersion($)
     , __x("The soap version `{envns}' is not supported", envns => $envns));
 }
 
+#------------------
 
 1;

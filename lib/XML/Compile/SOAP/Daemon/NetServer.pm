@@ -7,7 +7,7 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::NetServer;
 use vars '$VERSION';
-$VERSION = '3.09';
+$VERSION = '3.10';
 
 
 # The selected type of netserver gets added to the @ISA during new(),

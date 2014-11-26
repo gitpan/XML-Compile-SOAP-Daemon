@@ -7,7 +7,7 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::LWPutil;
 use vars '$VERSION';
-$VERSION = '3.09';
+$VERSION = '3.10';
 
 use parent 'Exporter';
 

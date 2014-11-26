@@ -28,4 +28,4 @@ requires:
   XML::Compile::Tester: 0.90
   XML::Compile::WSA: 0.90
   XML::Compile::WSDL11: 3.00
-version: 3.09
+version: 3.10

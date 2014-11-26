@@ -7,7 +7,7 @@ use strict;
 
 package XML::Compile::SOAP::Daemon::AnyDaemon;
 use vars '$VERSION';
-$VERSION = '3.09';
+$VERSION = '3.10';
 
 
 # Any::Daemon at least version 0.13
